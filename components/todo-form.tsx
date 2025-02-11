@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form"
+import { useForm, useFormContext } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Todo } from "@/types/todo"
 import { TodoFormValues, todoFormSchema } from "@/lib/schemas"
@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useEffect } from "react"
 
 interface TodoFormProps {
   open: boolean
@@ -50,6 +51,26 @@ export function TodoForm({
       status: defaultValues?.status || "not_started",
     },
   })
+
+  // Reset form when defaultValues change
+  useEffect(() => {
+    if (defaultValues) {
+      form.reset({
+        title: defaultValues.title,
+        description: defaultValues.description,
+        priority: defaultValues.priority,
+        due_date: defaultValues.due_date,
+        status: defaultValues.status,
+      })
+    }
+  }, [form, defaultValues])
+
+  // Reset form when sheet is closed
+  useEffect(() => {
+    if (!open) {
+      form.reset()
+    }
+  }, [form, open])
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
