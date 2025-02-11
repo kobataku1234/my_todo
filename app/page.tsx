@@ -8,6 +8,7 @@ import { TodoForm } from "@/components/todo-form"
 import { Button } from "@/components/ui/button"
 import { useTodos } from "@/hooks/use-todos"
 import { Todo } from "@/types/todo"
+import { TodoFormValues } from "@/lib/schemas"
 import { Toaster } from "@/components/ui/sonner"
 
 export default function Home() {
@@ -20,7 +21,7 @@ export default function Home() {
     setFormOpen(true)
   }
 
-  const handleFormSubmit = async (data: any) => {
+  const handleFormSubmit = async (data: TodoFormValues) => {
     const success = editingTodo
       ? await updateTodo(editingTodo.id, data)
       : await createTodo(data)

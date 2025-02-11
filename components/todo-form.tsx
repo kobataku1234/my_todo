@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { motion } from "framer-motion"
 import { Todo } from "@/types/todo"
 import { TodoFormValues, todoFormSchema } from "@/lib/schemas"
 import { Button } from "@/components/ui/button"
